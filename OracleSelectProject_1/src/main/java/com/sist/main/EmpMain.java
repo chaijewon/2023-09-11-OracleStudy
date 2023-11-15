@@ -13,6 +13,7 @@ public class EmpMain {
 	   //dao.empFindData(ename.toUpperCase());
 	   //dao.empRpadData();
 	   //dao.empSalInfoData();
-	   dao.empGroupByData();
+	   //dao.empGroupByData();
+	   dao.subqueryNotData();
    }
 }
