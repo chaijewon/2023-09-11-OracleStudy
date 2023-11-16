@@ -45,6 +45,7 @@ h1{
         <th class="text-center">총점</th>
         <th class="text-center">평균</th>
         <th class="text-center">등수</th>
+        <th class="text-center"></th>
       </tr>
       <%
          for(StudentVO vo:list)
@@ -59,6 +60,9 @@ h1{
 		        <td class="text-center"><%=vo.getTotal() %></td>
 		        <td class="text-center"><%=vo.getAvg() %></td>
 		        <td class="text-center"><%=vo.getRank() %></td>
+		        <td class="text-center">
+		         <a href="delete.jsp?hakbun=<%=vo.getHakbun() %>" class="btn btn-sm btn-info">삭제</a>
+		        </td>
 		      </tr>
       <%
          }

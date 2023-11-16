@@ -162,9 +162,85 @@ public class StudentDAO {
 	  return vo;
   }
   // 4. 수정 => UPDATE => COMMIT
-  
+  public StudentVO stdUpdateData(int hakbun)
+  {
+	  StudentVO vo=new StudentVO();
+	  try
+	  {
+		  getConnection();
+		  String sql="SELECT hakbun,name,kor,eng,math "
+				    +"FROM student "
+				    +"WHERE hakbun="+hakbun;
+		  // 대댓글 / 답변형 
+		  ps=conn.prepareStatement(sql);
+		  ResultSet rs=ps.executeQuery();
+		  rs.next();
+		  vo.setHakbun(rs.getInt(1));
+		  vo.setName(rs.getString(2));
+		  vo.setKor(rs.getInt(3));
+		  vo.setEng(rs.getInt(4));
+		  vo.setMath(rs.getInt(5));
+		  
+		  rs.close();
+		  
+	  }catch(Exception ex)
+	  {
+		  ex.printStackTrace();
+	  }
+	  finally
+	  {
+		  disConnection();
+	  }
+	  return vo;
+  }
+  public void stdUpdate(StudentVO vo)
+  {
+	  try
+	  {
+		  getConnection();
+		  String sql="UPDATE student SET "
+				    +"name=?,kor=?,eng=?,math=? "
+				    +"WHERE hakbun=?";
+		  ps=conn.prepareStatement(sql);
+		  ps.setString(1, vo.getName());
+		  ps.setInt(2,vo.getKor());
+		  ps.setInt(3, vo.getEng());
+		  ps.setInt(4, vo.getMath());
+		  ps.setInt(5, vo.getHakbun());
+		  
+		  ps.executeUpdate();
+		  
+	  }catch(Exception ex)
+	  {
+		  ex.printStackTrace();
+	  }
+	  finally
+	  {
+		  disConnection();
+	  }
+  }
   // 5. 삭제 => DELETE => COMMIT
-  public static void main(String[] args) {
+  public void stdDelete(int hakbun)
+  {
+	  try
+	  {
+		  getConnection();
+		  String sql="DELETE FROM student "
+				    +"WHERE hakbun="+hakbun;
+		  ps=conn.prepareStatement(sql);
+		  
+		  ps.executeUpdate();
+		  
+	  }catch(Exception ex)
+	  {
+		  ex.printStackTrace();
+	  }
+	  finally
+	  {
+		  disConnection();
+	  }
+  }
+  /*public static void main(String[] args) {
 	  StudentDAO dao=new StudentDAO();
 	  StudentVO vo=new StudentVO();
 	  vo.setHakbun(8);
@@ -173,5 +249,5 @@ public class StudentDAO {
 	  vo.setEng(60);
 	  vo.setMath(80);
 	  dao.stdInsert(vo);
-  }
+  }*/
 }
